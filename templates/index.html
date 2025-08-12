@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Blog Generator - Create Amazing Content</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'display': ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s infinite',
+                        'bounce-slow': 'bounce 3s infinite',
+                        'gradient': 'gradient 8s ease infinite',
+                        'typewriter': 'typewriter 4s steps(40) infinite alternate',
+                    },
+                    backgroundSize: {
+                        '300%': '300%',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(2deg); }
+        }
+        
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        @keyframes typewriter {
+            0% { width: 0; }
+            100% { width: 100%; }
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(-45deg, #0f0f23, #1a1a2e, #16213e, #0f1419, #1e1e2e, #0a0a0f);
+            background-size: 300% 300%;
+            animation: gradient 12s ease infinite;
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .neon-glow {
+            box-shadow: 0 0 20px rgba(79, 172, 254, 0.1), 0 0 40px rgba(79, 172, 254, 0.05);
+        }
+        
+        .hover-lift {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .input-focus:focus {
+            transform: scale(1.02);
+            transition: all 0.3s ease;
+        }
+        
+        .typing-animation {
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 2px solid #4facfe;
+            animation: typewriter 4s steps(40) infinite alternate;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: linear-gradient(45deg, #4facfe, #00f2fe);
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: float 8s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="font-display overflow-x-hidden">
+    <!-- Animated Background -->
+    <div class="fixed inset-0 gradient-bg -z-10"></div>
+    
+    <!-- Floating Particles -->
+    <div class="fixed inset-0 pointer-events-none -z-5">
+        <div class="particle" style="top: 20%; left: 10%; animation-delay: 0s;"></div>
+        <div class="particle" style="top: 60%; left: 80%; animation-delay: 2s;"></div>
+        <div class="particle" style="top: 40%; left: 60%; animation-delay: 4s;"></div>
+        <div class="particle" style="top: 80%; left: 20%; animation-delay: 1s;"></div>
+        <div class="particle" style="top: 10%; left: 70%; animation-delay: 3s;"></div>
+    </div>
+
+    <div class="min-h-screen flex flex-col items-center justify-center p-4 relative">
+        <!-- Header Section -->
+        <div class="text-center mb-12 animate-fade-in">
+            <div class="flex items-center justify-center mb-6">
+                <div class="w-16 h-16 bg-gradient-to-r from-blue-400 to-purple-500 rounded-2xl flex items-center justify-center animate-bounce-slow mr-4">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
+                </div>
+                <h1 class="text-6xl md:text-7xl font-black text-white tracking-tight">
+                    AI<span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-blue-400">Blog</span>
+                </h1>
+            </div>
+            <div class="typing-animation text-xl md:text-2xl text-white/90 font-medium max-w-2xl mx-auto">
+                Create viral content that actually engages your audience
+            </div>
+            <p class="text-white/70 mt-4 max-w-lg mx-auto text-lg">
+                Generate blog posts that don't suck. AI-powered, human-approved, engagement guaranteed.
+            </p>
+        </div>
+
+        <!-- Main Form Container -->
+        <div class="w-full max-w-2xl mx-auto glass-effect rounded-3xl p-8 hover-lift neon-glow">
+            <form id="blogForm" class="space-y-8">
+                <!-- Topic Input -->
+                <div class="space-y-2">
+                    <label class="text-white/90 text-sm font-semibold tracking-wide uppercase">
+                        What's your vibe? 🎯
+                    </label>
+                    <input 
+                        type="text" 
+                        id="topic" 
+                        name="topic" 
+                        required
+                        placeholder="AI in gaming, productivity hacks, crypto trends..."
+                        class="w-full px-6 py-4 bg-black/20 border border-white/10 rounded-2xl text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-blue-400/50 focus:border-transparent input-focus backdrop-blur-sm text-lg"
+                    >
+                </div>
+
+                <!-- Keywords Input -->
+                <div class="space-y-2">
+                    <label class="text-white/90 text-sm font-semibold tracking-wide uppercase">
+                        Keywords that hit different 🔥
+                    </label>
+                    <input 
+                        type="text" 
+                        id="keywords" 
+                        name="keywords"
+                        placeholder="innovation, technology, future, viral..."
+                        class="w-full px-6 py-4 bg-black/20 border border-white/10 rounded-2xl text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-blue-400/50 focus:border-transparent input-focus backdrop-blur-sm text-lg"
+                    >
+                </div>
+
+                <!-- Tone Selector -->
+                <div class="space-y-4">
+                    <label class="text-white/90 text-sm font-semibold tracking-wide uppercase">
+                        Choose your energy ⚡
+                    </label>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                        <label class="cursor-pointer">
+                            <input type="radio" name="tone" value="casual" class="sr-only" checked>
+                            <div class="tone-option bg-black/20 border border-white/10 rounded-xl p-4 text-center hover:bg-white/10 transition-all duration-300">
+                                <div class="text-2xl mb-2">😎</div>
+                                <div class="text-white/90 text-sm font-medium">Casual</div>
+                            </div>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="tone" value="professional" class="sr-only">
+                            <div class="tone-option bg-black/20 border border-white/10 rounded-xl p-4 text-center hover:bg-white/10 transition-all duration-300">
+                                <div class="text-2xl mb-2">🏢</div>
+                                <div class="text-white/90 text-sm font-medium">Pro</div>
+                            </div>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="tone" value="funny" class="sr-only">
+                            <div class="tone-option bg-black/20 border border-white/10 rounded-xl p-4 text-center hover:bg-white/10 transition-all duration-300">
+                                <div class="text-2xl mb-2">😂</div>
+                                <div class="text-white/90 text-sm font-medium">Funny</div>
+                            </div>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="tone" value="inspirational" class="sr-only">
+                            <div class="tone-option bg-black/20 border border-white/10 rounded-xl p-4 text-center hover:bg-white/10 transition-all duration-300">
+                                <div class="text-2xl mb-2">🚀</div>
+                                <div class="text-white/90 text-sm font-medium">Inspiring</div>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Generate Button -->
+                <button 
+                    type="submit"
+                    class="w-full py-5 px-8 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-white font-bold text-xl rounded-2xl hover:shadow-2xl hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-purple-400/50 relative overflow-hidden group"
+                >
+                    <span class="relative z-10 flex items-center justify-center">
+                        <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                        Generate Viral Content
+                    </span>
+                    <div class="absolute inset-0 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </button>
+            </form>
+        </div>
+
+        <!-- Loading Animation -->
+        <div id="loadingContainer" class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50">
+            <div class="glass-effect rounded-3xl p-12 text-center max-w-md mx-4">
+                <div class="relative mb-8">
+                    <div class="w-20 h-20 border-4 border-white/10 border-t-blue-400 rounded-full animate-spin mx-auto"></div>
+                    <div class="absolute inset-0 w-16 h-16 border-4 border-transparent border-t-purple-400 rounded-full animate-spin m-auto" style="animation-direction: reverse; animation-duration: 0.8s;"></div>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-4">Cooking up something amazing...</h3>
+                <div class="space-y-2 text-white/70">
+                    <p id="loadingText">Analyzing your topic...</p>
+                    <div class="w-full bg-white/10 rounded-full h-2">
+                        <div id="progressBar" class="bg-gradient-to-r from-blue-400 to-purple-400 h-2 rounded-full transition-all duration-1000 w-0"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Generated Content Display -->
+        <div id="contentDisplay" class="hidden w-full max-w-4xl mx-auto mt-12 glass-effect rounded-3xl p-8 neon-glow">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-2xl font-bold text-white flex items-center">
+                    <span class="text-3xl mr-3">🔥</span>
+                    Your Viral Blog Post
+                </h2>
+                <button id="copyButton" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg transition-colors duration-200 flex items-center">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                    </svg>
+                    Copy
+                </button>
+            </div>
+            <div id="blogContent" class="prose prose-lg max-w-none text-white/90 leading-relaxed">
+                <!-- Generated content will appear here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tone selection functionality
+        document.querySelectorAll('input[name="tone"]').forEach(input => {
+            input.addEventListener('change', function() {
+                document.querySelectorAll('.tone-option').forEach(option => {
+                    option.classList.remove('bg-blue-500/20', 'border-blue-400/50');
+                    option.classList.add('bg-black/20', 'border-white/10');
+                });
+                
+                if (this.checked) {
+                    const option = this.parentNode.querySelector('.tone-option');
+                    option.classList.remove('bg-black/20', 'border-white/10');
+                    option.classList.add('bg-blue-500/20', 'border-blue-400/50');
+                }
+            });
+        });
+
+        // Initialize first option as selected
+        document.querySelector('input[name="tone"]:checked').dispatchEvent(new Event('change'));
+
+        // Form submission with loading animation
+        document.getElementById('blogForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const topic = document.getElementById('topic').value;
+            const keywords = document.getElementById('keywords').value;
+            const tone = document.querySelector('input[name="tone"]:checked').value;
+            
+            if (!topic.trim()) {
+                alert('Please enter a topic to get started! 🎯');
+                return;
+            }
+            
+            showLoadingAnimation();
+            
+            // Simulate AI generation (replace with actual API call)
+            setTimeout(() => {
+                generateBlogPost(topic, keywords, tone);
+            }, 4000);
+        });
+
+        function showLoadingAnimation() {
+            const loadingContainer = document.getElementById('loadingContainer');
+            const loadingText = document.getElementById('loadingText');
+            const progressBar = document.getElementById('progressBar');
+            
+            loadingContainer.classList.remove('hidden');
+            
+            const loadingMessages = [
+                'Analyzing your topic...',
+                'Finding the perfect angle...',
+                'Crafting engaging content...',
+                'Adding that special sauce...',
+                'Almost ready to blow minds!'
+            ];
+            
+            let messageIndex = 0;
+            let progress = 0;
+            
+            const updateLoading = setInterval(() => {
+                if (messageIndex < loadingMessages.length) {
+                    loadingText.textContent = loadingMessages[messageIndex];
+                    progress += 20;
+                    progressBar.style.width = progress + '%';
+                    messageIndex++;
+                } else {
+                    clearInterval(updateLoading);
+                }
+            }, 800);
+        }
+
+        function generateBlogPost(topic, keywords, tone) {
+            // Hide loading
+            document.getElementById('loadingContainer').classList.add('hidden');
+            
+            // Sample generated content (replace with actual AI response)
+            const sampleContent = `
+                <h1>The Future is Now: ${topic}</h1>
+                <p>Hey there, digital natives! 👋 Ready to dive into something that's about to change everything? Let's talk about <strong>${topic}</strong> and why it's the next big thing that everyone needs to know about.</p>
+                
+                <h2>Why This Matters Right Now</h2>
+                <p>Look, we're living in wild times. Technology is moving faster than a TikTok trend, and ${topic} is at the center of it all. Whether you're a creator, entrepreneur, or just someone who loves staying ahead of the curve, this is your moment to understand what's coming next.</p>
+                
+                <h2>The Game-Changing Impact</h2>
+                <p>Here's what's really exciting about ${topic}:</p>
+                <ul>
+                    <li>🚀 It's revolutionizing how we think about innovation</li>
+                    <li>💡 Creating opportunities that didn't exist yesterday</li>
+                    <li>🌍 Connecting people in ways we never imagined</li>
+                    <li>⚡ Making the impossible feel inevitable</li>
+                </ul>
+                
+                <h2>What This Means for You</h2>
+                <p>The best part? You don't need to be a tech genius to get involved. ${topic} is democratizing access to tools and opportunities that were once reserved for the elite. Whether you're looking to level up your career, start a side hustle, or just understand the world better, this is your gateway.</p>
+                
+                <p><strong>The bottom line:</strong> We're witnessing history in the making. ${topic} isn't just a trend—it's the foundation of what's coming next. And honestly? It's pretty amazing to be alive right now.</p>
+                
+                <p>What do you think? Are you ready to be part of this revolution? Drop a comment and let's discuss where this is all heading! 🔥</p>
+            `;
+            
+            // Display the content
+            document.getElementById('blogContent').innerHTML = sampleContent;
+            document.getElementById('contentDisplay').classList.remove('hidden');
+            
+            // Scroll to content
+            document.getElementById('contentDisplay').scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+
+        // Copy functionality
+        document.getElementById('copyButton').addEventListener('click', function() {
+            const content = document.getElementById('blogContent').innerText;
+            navigator.clipboard.writeText(content).then(() => {
+                this.innerHTML = `
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    Copied!
+                `;
+                this.classList.remove('bg-green-500', 'hover:bg-green-600');
+                this.classList.add('bg-purple-500');
+                
+                setTimeout(() => {
+                    this.innerHTML = `
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                        </svg>
+                        Copy
+                    `;
+                    this.classList.remove('bg-purple-500');
+                    this.classList.add('bg-green-500', 'hover:bg-green-600');
+                }, 2000);
+            });
+        });
+
+        // Add some interactive particle effects on mouse move (optimized)
+        let particleCount = 0;
+        const maxParticles = 5;
+        
+        document.addEventListener('mousemove', function(e) {
+            if (Math.random() > 0.995 && particleCount < maxParticles) {
+                createFloatingParticle(e.clientX, e.clientY);
+            }
+        });
+
+        function createFloatingParticle(x, y) {
+            particleCount++;
+            const particle = document.createElement('div');
+            particle.className = 'fixed w-1 h-1 bg-blue-400/60 rounded-full pointer-events-none z-40';
+            particle.style.left = x + 'px';
+            particle.style.top = y + 'px';
+            particle.style.animation = 'float 3s ease-out forwards';
+            
+            document.body.appendChild(particle);
+            
+            setTimeout(() => {
+                particle.remove();
+                particleCount--;
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
